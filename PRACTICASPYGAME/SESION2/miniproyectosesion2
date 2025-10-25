@@ -1,0 +1,52 @@
+import pygame, sys
+
+# Inicializar Pygame
+pygame.init()
+
+# Ventana
+ANCHO, ALTO = 600, 600
+ventana = pygame.display.set_mode((ANCHO, ALTO))
+pygame.display.set_caption("Casa interactiva")
+
+# Colores predefinidos
+BLANCO = (255,255,255)
+ROJO = (255,0,0)
+AZUL = (0,0,255)
+VERDE = (0,255,0)
+
+# Color inicial de la casa
+color_casa = ROJO
+
+# Posiciones y tamaños
+cuerpo = pygame.Rect(200, 300, 200, 200)  # x, y, ancho, alto
+techo = [(200,300), (400,300), (300,200)] # triángulo (puntos)
+ventanas = [(230, 330), (330, 330)]       # centros de las ventanas
+radio_ventana = 20
+
+while True:
+    for e in pygame.event.get():
+        if e.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if e.type == pygame.KEYDOWN:
+            if e.key == pygame.K_r:
+                color_casa = ROJO
+            elif e.key == pygame.K_b:
+                color_casa = AZUL
+            elif e.key == pygame.K_g:
+                color_casa = VERDE
+
+    # Fondo blanco
+    ventana.fill(BLANCO)
+
+    # Dibujar cuerpo
+    pygame.draw.rect(ventana, color_casa, cuerpo)
+
+    # Dibujar techo
+    pygame.draw.polygon(ventana, (150,75,0), techo)  # marrón
+
+    # Dibujar ventanas
+    for centro in ventanas:
+        pygame.draw.circle(ventana, (0,255,255), centro, radio_ventana)  # azul cielo
+
+    pygame.display.update()

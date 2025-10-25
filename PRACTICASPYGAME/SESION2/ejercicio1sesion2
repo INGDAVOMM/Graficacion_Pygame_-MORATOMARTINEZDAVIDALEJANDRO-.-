@@ -1,0 +1,17 @@
+import pygame, sys
+
+pygame.init()
+ANCHO = ALTO = 800
+ventana = pygame.display.set_mode((ANCHO, ALTO))
+pygame.display.set_caption("Tablero de ajedrez")
+TAM = ANCHO // 8
+
+while True:
+    for e in pygame.event.get():
+        if e.type == pygame.QUIT: pygame.quit(); sys.exit()
+
+    for f in range(8):
+        for c in range(8):
+            pygame.draw.rect(ventana, (255,255,255) if (f+c)%2==0 else (0,0,0),
+                             (c*TAM, f*TAM, TAM, TAM))
+    pygame.display.update()
